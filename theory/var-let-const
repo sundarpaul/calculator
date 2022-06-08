@@ -1,1 +1,48 @@
 
+var : is global scooped or funciton scoped. It means variables defined outside the function can be accessed globally, and vaiables defined inside a particular function can be accessed within the function.
+
+ex: var a = 10
+	function f() {
+		console.log(a)
+	}
+	f();
+	console.log(a);
+
+	o/p
+	10
+	10
+
+
+let : this is block scoped. it can't be accessible outside the particular block . 
+
+ex: function f() {
+        if (true) {
+            let b = 9
+            console.log(b);
+        }
+        console.log(b);
+    }
+    f()
+
+	o/p
+	9
+	b is not defined
+
+
+const : const has all the properties that are of let expcept the user cannot update.
+
+ex: const a = {
+        prop1: 10,
+        prop2: 9
+    }
+     
+    // It is allowed
+    a.prop1 = 3
+ 
+    // It is not allowed
+    a = {
+        b: 10,
+        prop2: 9
+    }
+
+o/p: SyntaxError: Unexpected identifier
