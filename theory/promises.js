@@ -26,7 +26,14 @@ let promise = new Promise((resolve, reject) =>{
 promise.then((result)=> {
     console.log('first')
 }).then(()=>{
-    console.log('second')
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('second');
+            resolve();
+        }, 2000);
+    }
 }).then(()=>{
-    console.log('thrid')
-})
+        setTimeout(()=> {
+            console.log('third');
+        }, 1000);
+});
