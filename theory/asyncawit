@@ -1,0 +1,42 @@
+async and await make promises easier to write
+
+async makes a function return a promises
+
+await makes a function wait for a promises
+
+ASYNC : the keyword async before a function makes the function return a promise:
+
+
+const getData = async() => {
+    var data = "Hello World";
+    return data;
+}
+ 
+getData().then(data => console.log(data));
+
+AWAIT : the keyword await before a function makes the function wait for a promise:
+
+let value = await promise;
+
+The await keyword can only be used inside an async funciton
+
+ex:
+function example() {
+    let first_promise = new promise((resolve, reject) => resolve("hello"));
+    let second_promise = new promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("World");
+        }, 2000);
+    });
+    let combine = promise.all([first_promise, second_promise]);
+    return combine;
+}
+
+async funciton display(){
+    let data = await example();
+    console.log(data);
+}
+
+display();
+
+o/p: [ 'hello, 'World' ]
