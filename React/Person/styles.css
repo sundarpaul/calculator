@@ -1,0 +1,10 @@
+.data {
+    display: flex;
+}
+
+.label {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+body{ background-color: rgb(237, 177, 177);}
