@@ -1,0 +1,53 @@
+useState():
+
+const [state, setState] = useState(initialState);
+
+Returns a stateful value, and a function to update it.
+
+During the intial render, the returned state(state) is the same as the value passed as the first argument(initalState)
+
+The setState function is used to update the state. It accpets a new state value and enquees a re-render of the component.
+
+setState(newState);  
+During subsequent re-render, the first value returned by useState will always be the most recent state after applying updates.
+
+function Counter({initialCount}) {
+  const [count, setCount] = useState(initialCount);
+  return (
+    <>
+      Count: {count}
+      <button onClick={() => setCount(initialCount)}>Reset</button>
+      <button onClick={() => setCount(prevCount => prevCount - 1)}>-</button>
+      <button onClick={() => setCount(prevCount => prevCount + 1)}>+</button>
+    </>
+  );
+}
+
+
+******************************************************
+
+useEffect() :
+
+useEffect. The function passed to useEffect will run after the render is committed to the screen. Think of effects as an escape hatch from React’s purely functional world into the imperative world.
+
+By default, effects run after every completed render, but you can choose to fire them only when certain values have changed.
+
+import { useState, useEffect } from "react";
+import ReactDOM from "react-dom/client";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  const [calculation, setCalculation] = useState(0);
+
+  useEffect(() => {
+    setCalculation(() => count * 2);
+  }, [count]); // <- add the count variable here
+
+  return (
+    <>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>+</button>
+      <p>Calculation: {calculation}</p>
+    </>
+  );
+}
