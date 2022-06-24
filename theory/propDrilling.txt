@@ -1,0 +1,125 @@
+Prop Drilling:
+
+props driling is a situation when the same data is being sent at almost every level due to requirement.
+
+The problem with Prop Drilling is that whenever data from the Parent component will be needed, it would have to come from each level, Regardless of the fact that it is not needed there and simply needed in last.
+
+A better alternative to this is using useContext hook. The useContext hook is based on Context API and works on the mechanism of Provider and Consumer. Provider needs to wrap components inside Provider Components in which data have to be consumed. Then in those components, using the useContext hook that data needs to be consumed.
+
+
+ex 1: 
+import React, { useState, useContext } from "react";
+  
+let context = React.createContext(null);
+function Parent() {
+  const [fName, setfName] = useState("firstName");
+  const [lName, setlName] = useState("LastName");
+  return (
+    <context.Provider value={{ fName, lName }}>
+      <div>This is a Parent component</div>
+      <br />
+      <ChildA />
+    </context.Provider>
+  );
+}
+  
+function ChildA() {
+  return (
+    <>
+      This is ChildA Component.
+      <br />
+      <ChildB />
+    </>
+  );
+}
+  
+function ChildB() {
+  return (
+    <>
+      This is ChildB Component.
+      <br />
+      <ChildC />
+    </>
+  );
+}
+  
+function ChildC() {
+  const { fName, lName } = useContext(context);
+  return (
+    <>
+      This is ChildC component.
+      <br />
+      <h3> Data from Parent component is as follows:</h3>
+      <h4>{fName}</h4>
+      <h4>{lName}</h4>
+    </>
+  );
+}
+  
+export default Parent;
+
+
+ex 2: 
+
+
+Context.js
+
+import { createContext } from 'react';
+
+const countContext = () => {
+  expoxt const countContext createContext(null);
+}
+
+
+
+App.js
+
+import { useState } from  "react";
+import DisplayCount from './compoenents/DisplayCount';
+import countContext from './Context';
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  return {
+    <div>
+      <countContext.Provider value={{ count, setCount}}>
+        <DisplayCount count={count} />
+      </countContext.Provider>
+    </div>
+  }
+}
+export default App;
+
+
+
+DisplayCount.js
+
+import React, {useContext} from 'react'
+import Button from './Button';
+import { countContext } from './Context';
+
+const DisplayCount = () => {
+
+  const {count, setCount} = useContext(countContext);
+  return {
+    <div>
+      {count}
+      <Button />
+    </div>
+  }
+}
+export default DisplayCount;
+
+Button.js
+
+import React, { useContext } from 'react';
+import { countContext } from './Context';
+
+const Button = () => {
+  const {setCount} = useContext(countContext);
+
+  return <button onClick={(count)=> count + 1}>Increase Count</button>
+}
+
+export default Button;
